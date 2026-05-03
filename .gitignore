@@ -1,0 +1,9 @@
+# Materiales fuente locales. La web ya usa assets livianos derivados.
+*.pdf
+*.pptx
+
+# Sistema / editor
+.DS_Store
+Thumbs.db
+.vscode/
+

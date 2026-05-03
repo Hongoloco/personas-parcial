@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Estudio Derecho Civil - Personas</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Navegacion principal">
+        <a class="brand" href="#inicio" data-section-link="inicio">
+          <span class="brand-mark">DC</span>
+          <span>
+            <strong>Personas</strong>
+            <small>Derecho Civil en 1 dia</small>
+          </span>
+        </a>
+
+        <div class="progress-panel">
+          <span class="eyebrow">Avance</span>
+          <strong id="progressValue">0%</strong>
+          <div class="progress-bar" aria-hidden="true">
+            <span id="progressBar"></span>
+          </div>
+          <p id="progressText">0 bloques completados</p>
+        </div>
+
+        <nav class="nav-list">
+          <button class="nav-item is-active" type="button" data-section-link="inicio">Inicio</button>
+          <button class="nav-item" type="button" data-section-link="temas">Temas clave</button>
+          <button class="nav-item" type="button" data-section-link="fichas">Fichas</button>
+          <button class="nav-item" type="button" data-section-link="quiz">Parcial 30</button>
+          <button class="nav-item" type="button" data-section-link="comparadas">Comparadas</button>
+          <button class="nav-item" type="button" data-section-link="simulacro">Simulacro</button>
+        </nav>
+
+        <div class="timer-panel">
+          <span class="eyebrow">Bloque</span>
+          <strong id="timerDisplay">25:00</strong>
+          <div class="timer-actions">
+            <button type="button" id="timerStart">Iniciar</button>
+            <button type="button" id="timerReset">Reiniciar</button>
+          </div>
+        </div>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <div>
+            <span class="eyebrow">Plan intensivo</span>
+            <h1>Estudia lo que mas rinde para manana</h1>
+          </div>
+          <label class="search-box">
+            <span>Buscar</span>
+            <input id="searchInput" type="search" placeholder="Art. 7, Riggs, fuentes...">
+          </label>
+        </header>
+
+        <section class="search-results" id="searchResults" aria-live="polite" hidden></section>
+
+        <section class="view is-active" id="inicio" data-section="inicio">
+          <div class="intro-grid">
+            <article class="focus-block">
+              <span class="eyebrow">Prioridad alta</span>
+              <h2>Primero domina el mapa, despues memoriza articulos.</h2>
+              <p>
+                El material gira alrededor de cinco ejes: concepto de Derecho Civil,
+                fuentes, eficacia temporal de la ley, interpretacion e integracion, y
+                el caso Riggs contra Palmer como aplicacion de principios.
+              </p>
+              <div class="stat-row">
+                <span><strong>5</strong> temas</span>
+                <span><strong>8 h</strong> netas</span>
+                <span><strong>32</strong> fichas</span>
+                <span><strong>30</strong> preguntas</span>
+                <span><strong>30</strong> comparadas</span>
+              </div>
+            </article>
+            <article class="source-visual">
+              <img src="assets/riggs-cover.png" alt="Portada del caso Riggs contra Palmer">
+              <div>
+                <span class="eyebrow">Caso guia</span>
+                <strong>Riggs contra Palmer</strong>
+                <p>Reglas, principios, interpretacion equitativa y desacuerdo judicial.</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">Ruta de estudio</span>
+              <h2>Plan de 1 dia</h2>
+            </div>
+            <button type="button" id="clearProgress">Limpiar avance</button>
+          </div>
+          <div id="planList" class="plan-list"></div>
+
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">Memoria rapida</span>
+              <h2>Articulos que conviene tener a mano</h2>
+            </div>
+          </div>
+          <div id="articleCloud" class="article-cloud"></div>
+        </section>
+
+        <section class="view" id="temas" data-section="temas">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">Resumen activo</span>
+              <h2>Temas clave</h2>
+            </div>
+            <div class="filter-group" aria-label="Filtros de prioridad">
+              <button class="filter-btn is-active" type="button" data-filter="todos">Todo</button>
+              <button class="filter-btn" type="button" data-filter="alta">Alta</button>
+              <button class="filter-btn" type="button" data-filter="media">Media</button>
+            </div>
+          </div>
+          <div id="moduleGrid" class="module-grid"></div>
+        </section>
+
+        <section class="view" id="fichas" data-section="fichas">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">Active recall</span>
+              <h2>Fichas de repaso</h2>
+            </div>
+            <select id="cardFilter" aria-label="Filtrar fichas por tema"></select>
+          </div>
+          <article class="flashcard" id="flashcard" tabindex="0"></article>
+          <div class="card-actions">
+            <button type="button" id="prevCard">Anterior</button>
+            <button type="button" id="flipCard">Ver respuesta</button>
+            <button type="button" id="nextCard">Siguiente</button>
+          </div>
+          <p class="counter" id="cardCounter"></p>
+        </section>
+
+        <section class="view" id="quiz" data-section="quiz">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">Formato real</span>
+              <h2>Parcial multiple choice: 30 puntos</h2>
+            </div>
+            <button type="button" id="resetQuiz">Reiniciar parcial</button>
+          </div>
+          <article class="quiz-panel">
+            <div id="quizQuestion"></div>
+            <div id="quizOptions" class="quiz-options"></div>
+            <p id="quizFeedback" class="feedback"></p>
+            <div class="quiz-footer">
+              <span id="quizScore"></span>
+              <button type="button" id="nextQuestion">Siguiente</button>
+            </div>
+          </article>
+        </section>
+
+        <section class="view" id="comparadas" data-section="comparadas">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">Cruce con pruebas</span>
+              <h2>Preguntas comparadas</h2>
+            </div>
+            <button type="button" id="resetComparison">Reiniciar comparadas</button>
+          </div>
+          <div id="comparisonSummary" class="comparison-summary"></div>
+          <div id="comparisonQuestionList" class="comparison-list"></div>
+        </section>
+
+        <section class="view" id="simulacro" data-section="simulacro">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">Cierre</span>
+              <h2>Preguntas tipo parcial</h2>
+            </div>
+          </div>
+          <div id="examList" class="exam-list"></div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
