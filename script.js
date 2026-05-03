@@ -592,6 +592,10 @@ const quiz = [
   }
 ];
 
+quiz.forEach((item, index) => {
+  item.id = `quiz-${index}`;
+});
+
 const examPrompts = [
   {
     title: "Defina Derecho Civil y explique su funcion como derecho comun.",
@@ -939,8 +943,17 @@ const state = {
   cardFilter: "todos",
   cardIndex: 0,
   flipped: false,
+  quizMode: localStorage.getItem("quizMode") || "practice",
+  practiceOnlyMistakes: false,
+  practiceOptionOrders: JSON.parse(localStorage.getItem("practiceOptionOrders") || "{}"),
   quizIndex: 0,
   quizAnswers: JSON.parse(localStorage.getItem("quizAnswers30") || "{}"),
+  mistakeIds: JSON.parse(localStorage.getItem("mistakeIds") || "[]"),
+  examOrder: JSON.parse(localStorage.getItem("examOrder") || "[]"),
+  examOptionOrders: JSON.parse(localStorage.getItem("examOptionOrders") || "{}"),
+  examAnswers: JSON.parse(localStorage.getItem("examAnswers") || "{}"),
+  examStartedAt: Number(localStorage.getItem("examStartedAt") || "0"),
+  examSubmitted: localStorage.getItem("examSubmitted") === "true",
   comparisonAnswers: JSON.parse(localStorage.getItem("comparisonAnswers") || "{}"),
   planDone: JSON.parse(localStorage.getItem("planDone") || "{}"),
   moduleDone: JSON.parse(localStorage.getItem("moduleDone") || "{}")
@@ -952,7 +965,15 @@ const $$ = (selector) => Array.from(document.querySelectorAll(selector));
 function saveState() {
   localStorage.setItem("planDone", JSON.stringify(state.planDone));
   localStorage.setItem("moduleDone", JSON.stringify(state.moduleDone));
+  localStorage.setItem("quizMode", state.quizMode);
+  localStorage.setItem("practiceOptionOrders", JSON.stringify(state.practiceOptionOrders));
   localStorage.setItem("quizAnswers30", JSON.stringify(state.quizAnswers));
+  localStorage.setItem("mistakeIds", JSON.stringify(state.mistakeIds));
+  localStorage.setItem("examOrder", JSON.stringify(state.examOrder));
+  localStorage.setItem("examOptionOrders", JSON.stringify(state.examOptionOrders));
+  localStorage.setItem("examAnswers", JSON.stringify(state.examAnswers));
+  localStorage.setItem("examStartedAt", String(state.examStartedAt));
+  localStorage.setItem("examSubmitted", String(state.examSubmitted));
   localStorage.setItem("comparisonAnswers", JSON.stringify(state.comparisonAnswers));
 }
 
@@ -986,6 +1007,128 @@ function highlight(text, query) {
 function firstMatch(fields, normalizedQuery) {
   const flatFields = fields.flat().filter(Boolean).map(String);
   return flatFields.find((field) => normalizeText(field).includes(normalizedQuery)) || flatFields[0] || "";
+}
+
+function shuffledIndexes(length) {
+  const values = Array.from({ length }, (_, index) => index);
+  for (let i = values.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [values[i], values[j]] = [values[j], values[i]];
+  }
+  return values;
+}
+
+function questionNumberText(question) {
+  return question.replace(/^\d+\.\s*/, "");
+}
+
+function markMistake(questionIndex, isCorrect) {
+  const id = quiz[questionIndex].id;
+  const next = new Set(state.mistakeIds);
+  if (isCorrect) {
+    next.delete(id);
+  } else {
+    next.add(id);
+  }
+  state.mistakeIds = Array.from(next);
+}
+
+function practicePoolIndices() {
+  if (!state.practiceOnlyMistakes) return quiz.map((_, index) => index);
+  const mistakeSet = new Set(state.mistakeIds);
+  return quiz.map((item, index) => (mistakeSet.has(item.id) ? index : -1)).filter((index) => index >= 0);
+}
+
+function ensurePracticeIndex() {
+  const pool = practicePoolIndices();
+  if (!pool.length) {
+    state.quizIndex = 0;
+    return pool;
+  }
+  if (!pool.includes(state.quizIndex)) {
+    state.quizIndex = pool[0];
+  }
+  return pool;
+}
+
+function optionOrderFor(questionIndex) {
+  const key = String(questionIndex);
+  if (!state.practiceOptionOrders[key]) {
+    state.practiceOptionOrders[key] = shuffledIndexes(quiz[questionIndex].options.length);
+    saveState();
+  }
+  return state.practiceOptionOrders[key];
+}
+
+function startNewExam() {
+  state.examOrder = shuffledIndexes(quiz.length).slice(0, 30);
+  state.examOptionOrders = {};
+  state.examOrder.forEach((questionIndex) => {
+    state.examOptionOrders[questionIndex] = shuffledIndexes(quiz[questionIndex].options.length);
+  });
+  state.examAnswers = {};
+  state.examStartedAt = Date.now();
+  state.examSubmitted = false;
+  state.quizIndex = 0;
+  saveState();
+}
+
+function ensureExam() {
+  if (state.examOrder.length !== 30 || state.examOrder.some((index) => !quiz[index])) {
+    startNewExam();
+  }
+}
+
+function examRemainingSeconds() {
+  if (!state.examStartedAt || state.examSubmitted) return 0;
+  const elapsed = Math.floor((Date.now() - state.examStartedAt) / 1000);
+  return Math.max(0, 45 * 60 - elapsed);
+}
+
+function formatDuration(totalSeconds) {
+  const minutes = Math.floor(totalSeconds / 60).toString().padStart(2, "0");
+  const seconds = (totalSeconds % 60).toString().padStart(2, "0");
+  return `${minutes}:${seconds}`;
+}
+
+function submitExam() {
+  ensureExam();
+  state.examSubmitted = true;
+  state.examOrder.forEach((questionIndex) => {
+    const selected = state.examAnswers[questionIndex];
+    if (selected !== undefined) {
+      markMistake(questionIndex, selected === quiz[questionIndex].answer);
+    } else {
+      markMistake(questionIndex, false);
+    }
+  });
+  saveState();
+}
+
+function quizResultEntries(answers, questionIndices) {
+  return questionIndices.map((questionIndex) => ({
+    questionIndex,
+    selected: answers[questionIndex],
+    correct: answers[questionIndex] === quiz[questionIndex].answer
+  }));
+}
+
+function scoreByModule(entries) {
+  return entries.reduce((acc, entry) => {
+    const module = quiz[entry.questionIndex].module;
+    if (!acc[module]) acc[module] = { total: 0, correct: 0 };
+    acc[module].total += 1;
+    if (entry.correct) acc[module].correct += 1;
+    return acc;
+  }, {});
+}
+
+function performanceLabel(score, total) {
+  const pct = total ? score / total : 0;
+  if (pct >= 0.8) return "Muy buen margen";
+  if (pct >= 0.6) return "Aprobado probable";
+  if (pct >= 0.47) return "Zona de riesgo";
+  return "Repasar urgente";
 }
 
 function buildSearchResults(query) {
@@ -1257,30 +1400,60 @@ function renderFlashcard() {
   $("#cardCounter").textContent = `${state.cardIndex + 1} / ${pool.length}`;
 }
 
-function renderQuiz() {
+function renderPracticeQuiz() {
+  const pool = ensurePracticeIndex();
+  $("#submitExam").hidden = true;
+  $("#nextQuestion").hidden = false;
+  $("#resetQuiz").textContent = "Reiniciar practica";
+
+  const answered = Object.keys(state.quizAnswers).length;
+  const correct = Object.entries(state.quizAnswers).filter(([index, value]) => quiz[Number(index)].answer === value).length;
+
+  $("#quizStats").innerHTML = `
+    <article class="quiz-stat"><strong>${correct} / ${answered || 0}</strong><span>correctas respondidas</span></article>
+    <article class="quiz-stat"><strong>${state.mistakeIds.length}</strong><span>preguntas en banco de errores</span></article>
+    <article class="quiz-stat"><strong>${state.practiceOnlyMistakes ? "Incorrectas" : "Todas"}</strong><span>modo de practica</span></article>
+  `;
+
+  $("#practiceTools").innerHTML = `
+    <button type="button" id="repeatMistakes" ${state.mistakeIds.length ? "" : "disabled"}>${state.practiceOnlyMistakes ? "Ver todas" : "Repetir incorrectas"}</button>
+    <button type="button" id="clearMistakes" ${state.mistakeIds.length ? "" : "disabled"}>Vaciar errores</button>
+  `;
+
+  if (!pool.length) {
+    $("#quizQuestion").innerHTML = `<h3>No hay preguntas incorrectas guardadas.</h3>`;
+    $("#quizOptions").innerHTML = "";
+    $("#quizFeedback").className = "feedback is-neutral";
+    $("#quizFeedback").innerHTML = "<span>Cuando falles una pregunta, va a aparecer aca para repetirla.</span>";
+    $("#quizScore").textContent = "Banco de errores vacio";
+    return;
+  }
+
+  const position = pool.indexOf(state.quizIndex);
   const item = quiz[state.quizIndex];
   const selected = state.quizAnswers[state.quizIndex];
   const hasAnswered = selected !== undefined;
   const isCorrect = selected === item.answer;
   const correctAnswer = item.options[item.answer];
   const selectedAnswer = hasAnswered ? item.options[selected] : "";
+  const order = optionOrderFor(state.quizIndex);
 
   $("#quizQuestion").innerHTML = `
-    <span class="tag">Pregunta ${state.quizIndex + 1} de ${quiz.length} · 1 punto</span>
+    <span class="tag">Pregunta ${position + 1} de ${pool.length} - 1 punto</span>
     <span class="tag">${moduleName(item.module)}</span>
-    <h3>${item.question}</h3>
+    <h3>${questionNumberText(item.question)}</h3>
   `;
-  $("#quizOptions").innerHTML = item.options
-    .map((option, index) => {
+  $("#quizOptions").innerHTML = order
+    .map((optionIndex) => {
       const klass =
         selected === undefined
           ? ""
-          : index === item.answer
+          : optionIndex === item.answer
             ? "is-correct"
-            : selected === index
+            : selected === optionIndex
               ? "is-wrong"
               : "";
-      return `<button type="button" class="${klass}" data-option="${index}" ${selected !== undefined ? "disabled" : ""}>${option}</button>`;
+      return `<button type="button" class="${klass}" data-option="${optionIndex}" ${selected !== undefined ? "disabled" : ""}>${item.options[optionIndex]}</button>`;
     })
     .join("");
 
@@ -1292,11 +1465,112 @@ function renderQuiz() {
         <span>Respuesta correcta: ${correctAnswer}</span>
         <span>Explicacion: ${item.why}</span>
       `
-    : "Elegí una opción para ver la explicación.";
+    : "Elegi una opcion para ver la explicacion.";
 
-  const answered = Object.keys(state.quizAnswers).length;
-  const correct = Object.entries(state.quizAnswers).filter(([index, value]) => quiz[Number(index)].answer === value).length;
-  $("#quizScore").textContent = `Puntaje: ${correct} / ${quiz.length} · Respondidas: ${answered} / ${quiz.length}`;
+  $("#quizScore").textContent = `Practica: ${correct} correctas de ${answered} respondidas`;
+}
+
+function renderExamResults() {
+  const entries = quizResultEntries(state.examAnswers, state.examOrder);
+  const correct = entries.filter((entry) => entry.correct).length;
+  const byModule = scoreByModule(entries);
+
+  return `
+    <div class="result-dashboard">
+      <span class="result-pill">${performanceLabel(correct, state.examOrder.length)}</span>
+      <div class="result-grid">
+        ${Object.entries(byModule)
+          .map(
+            ([module, score]) => `
+              <article class="topic-result">
+                <strong>${score.correct} / ${score.total}</strong>
+                <span>${moduleName(module)}</span>
+              </article>
+            `
+          )
+          .join("")}
+      </div>
+    </div>
+  `;
+}
+
+function renderExamQuiz() {
+  ensureExam();
+  const remaining = examRemainingSeconds();
+  if (!state.examSubmitted && remaining === 0) {
+    submitExam();
+    state.quizIndex = 0;
+  }
+
+  $("#submitExam").hidden = state.examSubmitted;
+  $("#nextQuestion").hidden = false;
+  $("#resetQuiz").textContent = "Nuevo examen";
+  $("#practiceTools").innerHTML = "";
+
+  const answered = Object.keys(state.examAnswers).length;
+  const entries = quizResultEntries(state.examAnswers, state.examOrder);
+  const correct = entries.filter((entry) => entry.correct).length;
+
+  $("#quizStats").innerHTML = `
+    <article class="quiz-stat"><strong>${state.examSubmitted ? `${correct} / ${state.examOrder.length}` : `${answered} / ${state.examOrder.length}`}</strong><span>${state.examSubmitted ? "puntaje final" : "respondidas"}</span></article>
+    <article class="quiz-stat"><strong>${state.examSubmitted ? "Entregado" : formatDuration(remaining)}</strong><span>${state.examSubmitted ? "explicaciones visibles" : "tiempo restante"}</span></article>
+    <article class="quiz-stat"><strong>Opciones aleatorias</strong><span>no memorices la letra</span></article>
+  `;
+
+  const questionIndex = state.examOrder[state.quizIndex] ?? state.examOrder[0];
+  const item = quiz[questionIndex];
+  const selected = state.examAnswers[questionIndex];
+  const hasAnswered = selected !== undefined;
+  const isCorrect = selected === item.answer;
+  const order = state.examOptionOrders[questionIndex] || shuffledIndexes(item.options.length);
+  const correctAnswer = item.options[item.answer];
+  const selectedAnswer = hasAnswered ? item.options[selected] : "";
+
+  $("#quizQuestion").innerHTML = `
+    <span class="tag">Examen ${state.quizIndex + 1} de ${state.examOrder.length} - 1 punto</span>
+    <span class="tag">${moduleName(item.module)}</span>
+    <h3>${questionNumberText(item.question)}</h3>
+  `;
+  $("#quizOptions").innerHTML = order
+    .map((optionIndex) => {
+      const klass =
+        !state.examSubmitted
+          ? ""
+          : optionIndex === item.answer
+            ? "is-correct"
+            : selected === optionIndex
+              ? "is-wrong"
+              : "";
+      return `<button type="button" class="${klass}" data-exam-option="${optionIndex}" ${state.examSubmitted ? "disabled" : ""}>${item.options[optionIndex]}</button>`;
+    })
+    .join("");
+
+  if (state.examSubmitted) {
+    $("#quizFeedback").className = `feedback ${hasAnswered && isCorrect ? "is-correct" : "is-wrong"}`;
+    $("#quizFeedback").innerHTML = `
+      <strong>${hasAnswered && isCorrect ? "Correcta." : "Incorrecta."}</strong>
+      <span>${hasAnswered ? `Tu respuesta: ${selectedAnswer}` : "No respondiste esta pregunta."}</span>
+      <span>Respuesta correcta: ${correctAnswer}</span>
+      <span>Explicacion: ${item.why}</span>
+      ${state.quizIndex === 0 ? renderExamResults() : ""}
+    `;
+  } else {
+    $("#quizFeedback").className = "feedback is-neutral";
+    $("#quizFeedback").innerHTML = "<span>Modo examen: las explicaciones aparecen recien cuando entregues.</span>";
+  }
+
+  $("#quizScore").textContent = state.examSubmitted
+    ? `Puntaje final: ${correct} / ${state.examOrder.length}`
+    : `Examen en curso: ${answered} / ${state.examOrder.length} respondidas`;
+}
+
+function renderQuiz() {
+  $$(".mode-btn").forEach((button) => button.classList.toggle("is-active", button.dataset.quizMode === state.quizMode));
+  if (state.quizMode === "exam") {
+    renderExamQuiz();
+  } else {
+    renderPracticeQuiz();
+  }
 }
 
 function renderExam() {
@@ -1422,7 +1696,9 @@ function attachEvents() {
       }
 
       if (searchAction.dataset.quizIndex) {
+        state.quizMode = "practice";
         state.quizIndex = Number(searchAction.dataset.quizIndex);
+        saveState();
         renderQuiz();
       }
 
@@ -1451,8 +1727,20 @@ function attachEvents() {
     const optionButton = event.target.closest("[data-option]");
     if (optionButton) {
       state.quizAnswers[state.quizIndex] = Number(optionButton.dataset.option);
+      markMistake(state.quizIndex, state.quizAnswers[state.quizIndex] === quiz[state.quizIndex].answer);
       saveState();
       renderQuiz();
+    }
+
+    const examOptionButton = event.target.closest("[data-exam-option]");
+    if (examOptionButton) {
+      ensureExam();
+      const questionIndex = state.examOrder[state.quizIndex];
+      if (!state.examSubmitted && questionIndex !== undefined) {
+        state.examAnswers[questionIndex] = Number(examOptionButton.dataset.examOption);
+        saveState();
+        renderQuiz();
+      }
     }
 
     const comparisonButton = event.target.closest("[data-comparison-option]");
@@ -1476,6 +1764,36 @@ function attachEvents() {
   $("#searchInput").addEventListener("input", () => {
     renderModules();
     renderSearchResults();
+  });
+
+  $$(".mode-btn").forEach((button) => {
+    button.addEventListener("click", () => {
+      state.quizMode = button.dataset.quizMode;
+      if (state.quizMode === "exam") {
+        ensureExam();
+        state.quizIndex = Math.min(state.quizIndex, state.examOrder.length - 1);
+      } else {
+        ensurePracticeIndex();
+      }
+      saveState();
+      renderQuiz();
+    });
+  });
+
+  $("#practiceTools").addEventListener("click", (event) => {
+    if (event.target.closest("#repeatMistakes")) {
+      state.practiceOnlyMistakes = !state.practiceOnlyMistakes;
+      ensurePracticeIndex();
+      saveState();
+      renderQuiz();
+    }
+
+    if (event.target.closest("#clearMistakes")) {
+      state.mistakeIds = [];
+      state.practiceOnlyMistakes = false;
+      saveState();
+      renderQuiz();
+    }
   });
 
   $("#clearProgress").addEventListener("click", () => {
@@ -1519,15 +1837,48 @@ function attachEvents() {
   });
 
   $("#nextQuestion").addEventListener("click", () => {
-    state.quizIndex = (state.quizIndex + 1) % quiz.length;
+    if (state.quizMode === "exam") {
+      ensureExam();
+      state.quizIndex = (state.quizIndex + 1) % state.examOrder.length;
+    } else {
+      const pool = ensurePracticeIndex();
+      const current = pool.indexOf(state.quizIndex);
+      state.quizIndex = pool.length ? pool[(current + 1) % pool.length] : 0;
+    }
     renderQuiz();
   });
 
   $("#resetQuiz").addEventListener("click", () => {
-    state.quizAnswers = {};
-    saveState();
+    if (state.quizMode === "exam") {
+      startNewExam();
+    } else {
+      state.quizAnswers = {};
+      state.practiceOptionOrders = {};
+      state.practiceOnlyMistakes = false;
+      saveState();
+    }
     renderQuiz();
   });
+
+  $("#submitExam").addEventListener("click", () => {
+    if (state.quizMode === "exam") {
+      submitExam();
+      state.quizIndex = 0;
+      renderQuiz();
+    }
+  });
+
+  window.addEventListener("focus", () => {
+    if (state.quizMode === "exam" && !state.examSubmitted) {
+      renderQuiz();
+    }
+  });
+
+  setInterval(() => {
+    if (state.quizMode === "exam" && !state.examSubmitted) {
+      renderQuiz();
+    }
+  }, 1000);
 
   $("#resetComparison").addEventListener("click", () => {
     state.comparisonAnswers = {};

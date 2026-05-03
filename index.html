@@ -141,18 +141,27 @@
         <section class="view" id="quiz" data-section="quiz">
           <div class="section-heading">
             <div>
-              <span class="eyebrow">Formato real</span>
-              <h2>Parcial multiple choice: 30 puntos</h2>
+              <span class="eyebrow">Simulador</span>
+              <h2>Parcial multiple choice: practica y examen real</h2>
             </div>
             <button type="button" id="resetQuiz">Reiniciar parcial</button>
           </div>
+          <div class="quiz-mode-bar" aria-label="Modo del parcial">
+            <button class="mode-btn is-active" type="button" data-quiz-mode="practice">Practica explicada</button>
+            <button class="mode-btn" type="button" data-quiz-mode="exam">Examen real</button>
+          </div>
+          <div id="quizStats" class="quiz-stats"></div>
+          <div id="practiceTools" class="quiz-tools"></div>
           <article class="quiz-panel">
             <div id="quizQuestion"></div>
             <div id="quizOptions" class="quiz-options"></div>
             <p id="quizFeedback" class="feedback"></p>
             <div class="quiz-footer">
               <span id="quizScore"></span>
-              <button type="button" id="nextQuestion">Siguiente</button>
+              <div class="quiz-actions">
+                <button type="button" id="submitExam">Entregar examen</button>
+                <button type="button" id="nextQuestion">Siguiente</button>
+              </div>
             </div>
           </article>
         </section>
