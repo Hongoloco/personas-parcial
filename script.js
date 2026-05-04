@@ -136,6 +136,117 @@ const modules = [
   }
 ];
 
+modules.splice(4, 0,
+  {
+    id: "persona",
+    title: "Sujeto, persona y personalidad",
+    source: "Programa oficial Personas / Codigo Civil",
+    image: "assets/concepto-cover.png",
+    priority: "alta",
+    time: "70 min",
+    summary:
+      "Bloque de programa: nocion de sujeto de derecho, concepto legal de persona, personalidad, comienzo y fin de la personalidad.",
+    essentials: [
+      "Sujeto de derecho: centro de imputacion de derechos y obligaciones.",
+      "Persona en sentido juridico: quien puede ser titular de relaciones juridicas; el programa distingue persona fisica y persona juridica.",
+      "Personalidad: aptitud general para ser titular de derechos y deberes; no equivale a capacidad de ejercicio.",
+      "Comienzo de la personalidad: estudiar nacimiento, viabilidad, plazo y proteccion del concebido segun el enfoque de clase.",
+      "Fin de la personalidad: muerte comprobada y muerte presunta; la muerte civil aparece como antecedente o supuesto historico.",
+      "Derechos de la personalidad: derechos inherentes a la persona, de contenido extrapatrimonial y tutela especial."
+    ],
+    examTargets: [
+      "Distinguir persona, personalidad, sujeto de derecho y capacidad.",
+      "Explicar comienzo y fin de la personalidad sin confundir nacimiento con simple concepcion.",
+      "Relacionar persona fisica y persona juridica como clases de personas."
+    ],
+    traps: [
+      "No decir que personalidad y capacidad de obrar son lo mismo.",
+      "No estudiar solo definiciones: suelen preguntar efectos y diferencias."
+    ]
+  },
+  {
+    id: "atributos",
+    title: "Nombre, domicilio, ausencia y estado civil",
+    source: "Programa oficial Personas / Codigo Civil",
+    image: "assets/concepto-cover.png",
+    priority: "alta",
+    time: "85 min",
+    summary:
+      "Atributos y situaciones de identificacion de la persona: nombre, domicilio, ausencia y estado civil.",
+    essentials: [
+      "Nombre: identifica a la persona; comprende nombre individual y nombre de familia o apellido.",
+      "Domicilio: combina residencia y animo de permanecer; no se confunde con mera residencia.",
+      "Domicilio voluntario o real: se apoya en residencia y voluntad; domicilio legal surge por disposicion normativa.",
+      "Ausencia: situacion juridica que protege bienes e intereses cuando falta una persona y no hay certeza de su existencia.",
+      "Estado civil: situacion juridica de la persona en familia y sociedad; se prueba principalmente por partidas.",
+      "Registro de Estado Civil: central para prueba, rectificacion e impugnacion de partidas."
+    ],
+    examTargets: [
+      "Diferenciar domicilio, residencia y mera residencia.",
+      "Identificar elementos del nombre y acciones de proteccion.",
+      "Explicar estado civil, prueba principal, prueba supletoria y posesion notoria."
+    ],
+    traps: [
+      "No usar domicilio y residencia como sinonimos.",
+      "No olvidar que las partidas tienen valor probatorio central."
+    ]
+  },
+  {
+    id: "capacidad",
+    title: "Capacidad e incapacidades",
+    source: "Programa oficial Personas / Codigo Civil / CGP",
+    image: "assets/concepto-cover.png",
+    priority: "alta",
+    time: "85 min",
+    summary:
+      "Bloque muy probable: capacidad de goce, capacidad de ejercicio, incapacidades y medios de proteccion.",
+    essentials: [
+      "Capacidad juridica o de goce: aptitud para ser titular de derechos y obligaciones.",
+      "Capacidad de ejercicio u obrar: aptitud para ejercer por si los derechos y celebrar actos validos.",
+      "Incapacidad absoluta y relativa: categorias que inciden en la forma de suplir o complementar la actuacion.",
+      "Medios de proteccion: representacion, asistencia y autorizacion.",
+      "Actos de conservacion, administracion y disposicion: importan para graduar controles y autorizaciones.",
+      "Institutos de proteccion: patria potestad, tutela y curatela."
+    ],
+    examTargets: [
+      "Distinguir capacidad de goce y ejercicio.",
+      "Comparar representacion, asistencia y autorizacion.",
+      "Reconocer el tipo de acto: conservacion, administracion o disposicion."
+    ],
+    traps: [
+      "No afirmar que incapacidad elimina personalidad.",
+      "No confundir incapacidad con falta de legitimacion para un acto concreto."
+    ]
+  },
+  {
+    id: "juridica",
+    title: "Persona juridica",
+    source: "Programa oficial Personas / Ley 17.163",
+    image: "assets/fuentes-cover.jpeg",
+    priority: "media",
+    time: "65 min",
+    summary:
+      "Concepto, elementos, clases, reconocimiento, capacidad y extincion de las personas juridicas.",
+    essentials: [
+      "Persona juridica: centro colectivo o institucional reconocido como sujeto de derecho distinto de sus integrantes.",
+      "Elementos: organizacion, finalidad, patrimonio o medios y reconocimiento segun corresponda.",
+      "Clasificaciones: publicas/privadas; asociaciones civiles y fundaciones como figuras centrales del programa.",
+      "Reconocimiento: importa para adquirir personalidad juridica cuando el regimen lo exige.",
+      "Principio de especialidad: la capacidad se orienta por sus fines y estatuto.",
+      "Extincion: disolucion, liquidacion y destino de bienes conforme al regimen aplicable."
+    ],
+    examTargets: [
+      "Distinguir persona juridica de sus miembros.",
+      "Comparar asociacion civil y fundacion.",
+      "Explicar principio de especialidad y efectos del reconocimiento."
+    ],
+    traps: [
+      "No atribuir a la persona juridica exactamente la misma capacidad que a la persona fisica.",
+      "No olvidar el contralor estatal y el destino de bienes al extinguirse."
+    ]
+  }
+);
+
 const dayPlan = [
   {
     id: "mapa",
@@ -202,6 +313,30 @@ const dayPlan = [
   }
 ];
 
+dayPlan.splice(6, 0,
+  {
+    id: "persona",
+    time: "06:15 - 07:00",
+    title: "Persona, personalidad y derechos de la personalidad",
+    detail: "Repasa sujeto de derecho, comienzo y fin de la personalidad y derechos inherentes.",
+    tag: "Programa"
+  },
+  {
+    id: "atributos",
+    time: "07:00 - 07:45",
+    title: "Nombre, domicilio, ausencia y estado civil",
+    detail: "Foco en diferencias: domicilio/residencia, prueba del estado civil y partidas.",
+    tag: "Programa"
+  },
+  {
+    id: "capacidad",
+    time: "07:45 - 08:30",
+    title: "Capacidad, incapacidades y persona juridica",
+    detail: "Distingue goce/ejercicio, representacion/asistencia/autorizacion y especialidad de la persona juridica.",
+    tag: "Programa"
+  }
+);
+
 const articles = [
   ["Art. 1 CCU", "vigencia a los 10 dias si la ley guarda silencio"],
   ["Art. 7 CCU", "principio de irretroactividad civil"],
@@ -217,6 +352,15 @@ const articles = [
   ["Art. 138 Const.", "veto suspensivo"],
   ["Arts. 136 y 168.4 Const.", "publicacion de la ley por el Poder Ejecutivo"]
 ];
+
+articles.push(
+  ["Arts. 21-23 CCU", "personas civiles: personas fisicas y juridicas"],
+  ["Arts. 24-38 CCU", "domicilio civil, residencia y domicilio legal/especial"],
+  ["Arts. 39-49 CCU", "estado civil, partidas y prueba del estado"],
+  ["Decreto-ley 15.462", "nombre: componentes, cambio y proteccion"],
+  ["Ley 17.163", "asociaciones civiles y fundaciones"],
+  ["CGP arts. 442 y 447", "referencias del programa sobre incapacidad y proteccion"]
+);
 
 const flashcards = [
   ["civil", "Tres acepciones de la palabra Derecho.", "Objetivo: normas de coexistencia. Subjetivo: facultad reconocida por la norma. Ciencia: disciplina que estudia esos fenomenos."],
@@ -253,6 +397,29 @@ const flashcards = [
   ["riggs", "Argumento de la disidencia.", "Si la ley testamentaria regula como alterar o revocar testamentos, el juez no debe crear una excepcion ni una pena adicional."],
   ["riggs", "Por que Riggs sirve para interpretar.", "Muestra tension entre reglas literales, principios juridicos y discrecionalidad judicial en casos dificiles."]
 ].map(([module, question, answer], index) => ({ id: `card-${index}`, module, question, answer }));
+
+flashcards.push(
+  ...[
+    ["persona", "Sujeto de derecho.", "Centro de imputacion de derechos y obligaciones; puede ser persona fisica o juridica."],
+    ["persona", "Personalidad juridica.", "Aptitud general para ser titular de derechos y deberes. No equivale a capacidad de ejercicio."],
+    ["persona", "Comienzo de la personalidad.", "Bloque del programa: nacimiento, viabilidad, plazo y proteccion del concebido segun derecho uruguayo."],
+    ["persona", "Fin de la personalidad.", "Muerte comprobada y muerte presunta; muerte civil queda como referencia historica."],
+    ["persona", "Derechos de la personalidad.", "Derechos inherentes a la persona, normalmente extrapatrimoniales, necesarios y de tutela especial."],
+    ["atributos", "Elementos del nombre.", "Nombre individual y nombre de familia o apellido; identifica juridica y socialmente a la persona."],
+    ["atributos", "Domicilio vs residencia.", "El domicilio suma residencia y animo real o presunto de permanecer; la residencia sola no basta siempre."],
+    ["atributos", "Domicilio legal.", "Domicilio fijado por la ley para determinadas personas o situaciones, mas alla de la voluntad."],
+    ["atributos", "Estado civil.", "Situacion juridica de la persona respecto de la familia y la sociedad; se prueba centralmente por partidas."],
+    ["atributos", "Prueba supletoria del estado civil.", "Opera cuando falta o no puede obtenerse la prueba principal; incluye posesion notoria segun el programa."],
+    ["capacidad", "Capacidad de goce.", "Aptitud para ser titular de derechos y obligaciones."],
+    ["capacidad", "Capacidad de ejercicio.", "Aptitud para ejercer por si derechos y celebrar actos juridicos validos."],
+    ["capacidad", "Representacion.", "El representante actua por el incapaz y sustituye su voluntad juridica."],
+    ["capacidad", "Asistencia.", "El asistente complementa la voluntad de la persona protegida; no la reemplaza totalmente."],
+    ["capacidad", "Autorizacion.", "Control o habilitacion previa para actos que requieren permiso."],
+    ["juridica", "Persona juridica.", "Sujeto de derecho distinto de las personas fisicas que lo integran, reconocido por el ordenamiento."],
+    ["juridica", "Principio de especialidad.", "La persona juridica actua dentro de la orbita de sus fines y estatuto."],
+    ["juridica", "Asociacion civil y fundacion.", "La asociacion se apoya en miembros; la fundacion se organiza alrededor de un patrimonio destinado a un fin."]
+  ].map(([module, question, answer], index) => ({ id: `card-extra-${index}`, module, question, answer }))
+);
 
 const quiz = [
   {
@@ -592,6 +759,501 @@ const quiz = [
   }
 ];
 
+const extraQuiz = [
+  {
+    module: "persona",
+    question: "31. Que es sujeto de derecho?",
+    options: ["Centro de imputacion de derechos y obligaciones", "Solo una persona mayor de edad", "Unicamente el Estado", "Una cosa incorporal"],
+    answer: 0,
+    why: "El sujeto de derecho es quien puede aparecer como titular de derechos, deberes o relaciones juridicas."
+  },
+  {
+    module: "persona",
+    question: "32. Que diferencia personalidad de capacidad de ejercicio?",
+    options: ["La personalidad es aptitud para ser titular; la capacidad de ejercicio es actuar por si", "Son exactamente sinonimos", "La personalidad solo existe en asociaciones", "La capacidad de ejercicio es siempre absoluta"],
+    answer: 0,
+    why: "Una persona puede tener personalidad y capacidad de goce aunque necesite representacion o asistencia para obrar."
+  },
+  {
+    module: "persona",
+    question: "33. Que clases de personas trabaja el programa?",
+    options: ["Fisicas y juridicas", "Reales y presuntas solamente", "Publicas y penales", "Historicas y materiales"],
+    answer: 0,
+    why: "El programa distingue persona fisica o humana y persona juridica."
+  },
+  {
+    module: "persona",
+    question: "34. Cual es el punto central del comienzo de la personalidad?",
+    options: ["Nacimiento y requisitos exigidos por el derecho uruguayo", "Promulgacion de la ley", "Veto legislativo", "Derogacion tacita"],
+    answer: 0,
+    why: "El programa ubica nacimiento, viabilidad, plazo y proteccion del concebido dentro del comienzo de la personalidad."
+  },
+  {
+    module: "persona",
+    question: "35. La proteccion juridica del concebido implica que...",
+    options: ["El ordenamiento puede tutelar intereses antes del nacimiento", "La personalidad de ejercicio es plena desde la concepcion", "No hay ninguna consecuencia juridica", "El concebido siempre puede contratar por si"],
+    answer: 0,
+    why: "El programa exige estudiar proteccion del concebido, pero no debe confundirse con plena capacidad de obrar."
+  },
+  {
+    module: "persona",
+    question: "36. Cual NO es una forma actual o historica de fin de la personalidad estudiada en el programa?",
+    options: ["Promulgacion", "Muerte comprobada", "Muerte presunta", "Muerte civil como antecedente"],
+    answer: 0,
+    why: "Promulgacion pertenece a la formacion de la ley; no al fin de la personalidad."
+  },
+  {
+    module: "persona",
+    question: "37. Que caracteriza a los derechos de la personalidad?",
+    options: ["Son inherentes a la persona y de tutela especial", "Son solo derechos patrimoniales disponibles", "Solo existen para personas juridicas publicas", "Dependen de cada contrato"],
+    answer: 0,
+    why: "Los derechos de la personalidad se estudian como derechos ligados a la persona y no como simples bienes contractuales."
+  },
+  {
+    module: "persona",
+    question: "38. Cual es una trampa frecuente sobre personalidad?",
+    options: ["Confundir personalidad con capacidad de obrar", "Distinguir persona fisica y juridica", "Reconocer derechos de la personalidad", "Estudiar muerte presunta"],
+    answer: 0,
+    why: "La personalidad es aptitud general; la capacidad de ejercicio puede estar limitada."
+  },
+  {
+    module: "atributos",
+    question: "39. Cuales son elementos componentes del nombre segun el programa?",
+    options: ["Nombre individual y apellido", "Domicilio y residencia", "Sancion y promulgacion", "Viabilidad y derogacion"],
+    answer: 0,
+    why: "El programa menciona nombre individual y nombre de familia o apellido."
+  },
+  {
+    module: "atributos",
+    question: "40. Para que sirve juridicamente el nombre?",
+    options: ["Para identificar a la persona", "Para determinar la derogacion", "Para sustituir la personalidad", "Para crear la Constitucion"],
+    answer: 0,
+    why: "El nombre es un atributo de identificacion de la persona."
+  },
+  {
+    module: "atributos",
+    question: "41. Cual es la diferencia correcta entre seudonimo y nombre?",
+    options: ["El seudonimo identifica en ciertos ambitos; el nombre es la identificacion juridica principal", "Son siempre identicos", "El seudonimo reemplaza el estado civil", "El nombre solo vale en contratos comerciales"],
+    answer: 0,
+    why: "El programa distingue nombre, seudonimo y sobrenombre como figuras de identificacion."
+  },
+  {
+    module: "atributos",
+    question: "42. Que combinacion define mejor el domicilio real o voluntario?",
+    options: ["Residencia y animo de permanecer", "Publicacion y promulgacion", "Sentencia y doctrina", "Nacimiento y viabilidad"],
+    answer: 0,
+    why: "El domicilio supone residencia acompanada del animo real o presunto de permanecer."
+  },
+  {
+    module: "atributos",
+    question: "43. Que es mera residencia?",
+    options: ["Permanencia fisica sin configurar necesariamente domicilio", "Domicilio legal automatico", "Estado civil de casado", "Nombre de familia"],
+    answer: 0,
+    why: "La residencia puede existir sin el elemento intencional o legal que forma domicilio."
+  },
+  {
+    module: "atributos",
+    question: "44. Que es domicilio legal?",
+    options: ["El fijado por la ley para ciertas personas o situaciones", "El elegido libremente en todos los casos", "Una fuente historica", "Una sancion penal"],
+    answer: 0,
+    why: "El domicilio legal no depende puramente de la voluntad, sino de una regla normativa."
+  },
+  {
+    module: "atributos",
+    question: "45. Cual es una importancia practica del domicilio?",
+    options: ["Determinar competencia o lugar de efectos juridicos", "Derogar automaticamente leyes", "Eliminar la capacidad", "Crear una persona juridica sin reconocimiento"],
+    answer: 0,
+    why: "El domicilio cumple funciones practicas en competencia, notificaciones y localizacion juridica de la persona."
+  },
+  {
+    module: "atributos",
+    question: "46. Que busca proteger el regimen de ausencia?",
+    options: ["Bienes e intereses de quien falta y de terceros vinculados", "La publicacion de leyes", "La interpretacion autentica", "El veto suspensivo"],
+    answer: 0,
+    why: "La ausencia organiza proteccion patrimonial y personal cuando falta una persona sin certeza de muerte."
+  },
+  {
+    module: "atributos",
+    question: "47. Que es el estado civil?",
+    options: ["Situacion juridica de la persona en relacion con familia y sociedad", "Una clase de derogacion", "Una fuente material", "Un metodo de interpretacion historica"],
+    answer: 0,
+    why: "El estado civil ubica juridicamente a la persona, especialmente en relaciones familiares."
+  },
+  {
+    module: "atributos",
+    question: "48. Cual es la prueba principal del estado civil?",
+    options: ["Las partidas del Registro de Estado Civil", "La opinion doctrinaria", "El rumor publico sin control", "La costumbre contra legem"],
+    answer: 0,
+    why: "El programa destaca las actas o partidas y su valor probatorio."
+  },
+  {
+    module: "atributos",
+    question: "49. Que es la posesion notoria del estado civil?",
+    options: ["Una forma de prueba supletoria basada en trato, fama y comportamiento social", "Una forma de derogacion expresa", "Una capacidad de ejercicio plena", "Una persona juridica publica"],
+    answer: 0,
+    why: "La posesion notoria funciona como prueba supletoria cuando corresponde acreditar un estado."
+  },
+  {
+    module: "atributos",
+    question: "50. Que puede ocurrir con una partida incorrecta?",
+    options: ["Puede discutirse mediante rectificacion o impugnacion segun corresponda", "Siempre deroga el Codigo Civil", "No puede revisarse jamas", "Elimina el estado civil"],
+    answer: 0,
+    why: "El programa incluye impugnacion, nulidad y rectificacion de partidas."
+  },
+  {
+    module: "capacidad",
+    question: "51. Que es capacidad juridica o de goce?",
+    options: ["Aptitud para ser titular de derechos y obligaciones", "Aptitud exclusiva para litigar sin abogado", "La mayoria de edad politica", "La publicacion de la ley"],
+    answer: 0,
+    why: "La capacidad de goce mira la titularidad de derechos, no necesariamente su ejercicio personal."
+  },
+  {
+    module: "capacidad",
+    question: "52. Que es capacidad de ejercicio o de obrar?",
+    options: ["Aptitud para ejercer por si derechos y celebrar actos validos", "Ser mencionado en una partida", "Ser persona juridica publica", "La obligacion de promulgar leyes"],
+    answer: 0,
+    why: "La capacidad de ejercicio se refiere a actuar validamente por uno mismo."
+  },
+  {
+    module: "capacidad",
+    question: "53. Que afirmacion es correcta?",
+    options: ["Puede haber personalidad sin plena capacidad de ejercicio", "Sin capacidad de ejercicio no hay personalidad", "La incapacidad elimina todo derecho", "La capacidad solo se aplica a cosas"],
+    answer: 0,
+    why: "La incapacidad limita el modo de actuar, no borra la personalidad ni la titularidad de derechos."
+  },
+  {
+    module: "capacidad",
+    question: "54. Que medio suple la incapacidad sustituyendo la voluntad del incapaz?",
+    options: ["Representacion", "Publicacion", "Derogacion", "Interpretacion doctrinaria"],
+    answer: 0,
+    why: "En la representacion, otra persona actua juridicamente por el protegido."
+  },
+  {
+    module: "capacidad",
+    question: "55. Que medio complementa la voluntad sin sustituirla completamente?",
+    options: ["Asistencia", "Muerte presunta", "Promulgacion", "Fuente historica"],
+    answer: 0,
+    why: "La asistencia acompana o complementa la actuacion de la persona protegida."
+  },
+  {
+    module: "capacidad",
+    question: "56. Que es autorizacion en materia de proteccion?",
+    options: ["Habilitacion o permiso para realizar ciertos actos", "Un tipo de nombre", "Una derogacion tacita", "Un estado civil"],
+    answer: 0,
+    why: "Algunos actos requieren autorizacion previa por su importancia o riesgo."
+  },
+  {
+    module: "capacidad",
+    question: "57. Que tipo de acto suele exigir mayor control?",
+    options: ["Acto de disposicion", "Acto de simple conservacion", "Acto meramente material", "Lectura de una ley"],
+    answer: 0,
+    why: "Los actos de disposicion comprometen mas intensamente el patrimonio que los de conservacion."
+  },
+  {
+    module: "capacidad",
+    question: "58. Cual es un instituto de proteccion de incapaces?",
+    options: ["Tutela", "Derogacion mixta", "Veto suspensivo", "Ley interpretativa"],
+    answer: 0,
+    why: "Patria potestad, tutela y curatela aparecen en el programa como institutos de proteccion."
+  },
+  {
+    module: "capacidad",
+    question: "59. Que protege la curatela en terminos generales?",
+    options: ["A personas que requieren apoyo o representacion por limitaciones relevantes", "La publicacion de leyes", "La voluntad del legislador historico", "La constitucion de sociedades comerciales solamente"],
+    answer: 0,
+    why: "La curatela es uno de los institutos de proteccion vinculados a situaciones de incapacidad o necesidad de apoyo."
+  },
+  {
+    module: "capacidad",
+    question: "60. Que trampa conviene evitar sobre incapacidad?",
+    options: ["Creer que incapacidad equivale a inexistencia de derechos", "Distinguir goce y ejercicio", "Usar representacion", "Identificar actos de disposicion"],
+    answer: 0,
+    why: "La incapacidad afecta el ejercicio o modo de actuacion, no la condicion de persona."
+  },
+  {
+    module: "juridica",
+    question: "61. Que es persona juridica?",
+    options: ["Sujeto de derecho distinto de sus integrantes reconocido por el ordenamiento", "Una persona fisica mayor de edad", "Una fuente historica", "Un articulo del Codigo Penal"],
+    answer: 0,
+    why: "La persona juridica tiene individualidad juridica propia, diferente de sus miembros."
+  },
+  {
+    module: "juridica",
+    question: "62. Cual es un elemento de la persona juridica?",
+    options: ["Organizacion orientada a un fin", "Solo nacimiento biologico", "Estado civil matrimonial", "Mera residencia"],
+    answer: 0,
+    why: "Las personas juridicas requieren estructura u organizacion y finalidad."
+  },
+  {
+    module: "juridica",
+    question: "63. Que diferencia asociacion civil y fundacion?",
+    options: ["La asociacion se centra en miembros; la fundacion en un patrimonio destinado a un fin", "Son exactamente iguales", "La fundacion no tiene finalidad", "La asociacion no puede tener organizacion"],
+    answer: 0,
+    why: "Esta diferencia es clasica y aparece expresamente en el programa."
+  },
+  {
+    module: "juridica",
+    question: "64. Que significa reconocimiento de una persona juridica?",
+    options: ["Acto o procedimiento que le permite adquirir personalidad cuando el regimen lo exige", "Cambio de domicilio de una persona fisica", "Prueba supletoria del estado civil", "Derogacion de una ley"],
+    answer: 0,
+    why: "El programa destaca la importancia del reconocimiento en la constitucion de la persona juridica."
+  },
+  {
+    module: "juridica",
+    question: "65. Que expresa el principio de especialidad?",
+    options: ["La persona juridica actua dentro de sus fines y estatuto", "Toda persona juridica puede hacer cualquier acto humano", "La ley penal es siempre retroactiva", "La doctrina obliga como ley"],
+    answer: 0,
+    why: "La capacidad de la persona juridica se limita por su objeto, fines y regimen."
+  },
+  {
+    module: "juridica",
+    question: "66. Que tipo de derechos puede tener una persona juridica?",
+    options: ["Patrimoniales y ciertos derechos personales compatibles con su naturaleza", "Solo derechos de familia biologica", "Unicamente derechos politicos electorales", "Ningun derecho"],
+    answer: 0,
+    why: "La persona juridica no replica toda la condicion humana, pero puede ser titular de derechos adecuados a su naturaleza."
+  },
+  {
+    module: "juridica",
+    question: "67. Que ocurre al extinguirse una persona juridica?",
+    options: ["Debe resolverse liquidacion y destino de sus bienes", "Desaparecen automaticamente todos los actos validos anteriores", "Se convierte en domicilio", "Deroga la ley que la reconocio"],
+    answer: 0,
+    why: "El programa incluye causas de extincion y destino de derechos o bienes tras la desaparicion."
+  },
+  {
+    module: "juridica",
+    question: "68. Que implica que la persona juridica sea distinta de sus miembros?",
+    options: ["Tiene esfera juridica propia", "Sus miembros nunca actuan", "No requiere organizacion", "No puede tener patrimonio"],
+    answer: 0,
+    why: "La separacion subjetiva permite atribuir derechos, deberes y patrimonio al ente."
+  },
+  {
+    module: "juridica",
+    question: "69. Que rol puede cumplir el Estado respecto de personas juridicas?",
+    options: ["Contralor en los casos previstos", "Eliminar siempre su capacidad", "Actuar como prueba de nacimiento", "Sustituir la doctrina"],
+    answer: 0,
+    why: "El programa menciona el contralor estatal sobre la persona juridica."
+  },
+  {
+    module: "juridica",
+    question: "70. Cual es una trampa sobre persona juridica?",
+    options: ["Atribuirle exactamente la misma capacidad que a la persona fisica", "Distinguirla de sus miembros", "Reconocer su finalidad", "Estudiar su extincion"],
+    answer: 0,
+    why: "Su capacidad depende de su naturaleza, fines y regimen; no es identica a la de una persona humana."
+  },
+  {
+    module: "fuentes",
+    question: "71. Que lugar tiene la jurisprudencia en el programa?",
+    options: ["Se estudia su concepto, importancia y alcance de la sentencia judicial", "Es la unica fuente formal obligatoria general", "Deroga siempre al Codigo Civil", "No tiene relevancia teorica"],
+    answer: 0,
+    why: "El programa incluye jurisprudencia y alcance de la fuerza obligatoria de la sentencia en Uruguay."
+  },
+  {
+    module: "fuentes",
+    question: "72. Cual es el alcance general de una sentencia judicial en nuestro derecho positivo?",
+    options: ["Obliga principalmente en el caso concreto", "Tiene fuerza de ley general siempre", "Deroga automaticamente la Constitucion", "Reemplaza la promulgacion"],
+    answer: 0,
+    why: "La sentencia resuelve el caso; su valor como antecedente no equivale a legislacion general."
+  },
+  {
+    module: "fuentes",
+    question: "73. Que es doctrina en fuentes del Derecho?",
+    options: ["Opinion cientifica de autores y juristas", "Publicacion en Diario Oficial", "Domicilio legal", "Una persona juridica publica"],
+    answer: 0,
+    why: "La doctrina orienta la comprension del Derecho, pero no tiene en general fuerza normativa directa."
+  },
+  {
+    module: "fuentes",
+    question: "74. Que requisito se asocia a la costumbre como fuente?",
+    options: ["Practica reiterada y conviccion de obligatoriedad cuando el sistema la admite", "Un solo acto aislado", "Ser siempre contraria a la ley", "Ser dictada por el Poder Ejecutivo"],
+    answer: 0,
+    why: "La costumbre exige repeticion y sentido normativo, ademas de admision por el ordenamiento."
+  },
+  {
+    module: "fuentes",
+    question: "75. Que significa jerarquia normativa?",
+    options: ["Orden de prevalencia entre normas", "Lista de estudiantes aprobados", "Tiempo usado en un examen", "Domicilio de la persona"],
+    answer: 0,
+    why: "La jerarquia permite resolver conflictos segun rango normativo, con la Constitucion en la cima."
+  },
+  {
+    module: "tiempo",
+    question: "76. Que es vacatio legis?",
+    options: ["Periodo entre publicacion y entrada en vigencia", "Derogacion tacita", "Interpretacion judicial", "Capacidad de goce"],
+    answer: 0,
+    why: "La vacatio legis es el lapso antes de que la ley empiece a regir."
+  },
+  {
+    module: "tiempo",
+    question: "77. Que es derecho adquirido en la doctrina clasica?",
+    options: ["Derecho definitivamente incorporado al patrimonio o esfera del titular", "Simple esperanza futura", "Proyecto aun no sancionado", "Norma derogada sin efectos"],
+    answer: 0,
+    why: "La doctrina clasica opone derecho adquirido a mera expectativa."
+  },
+  {
+    module: "tiempo",
+    question: "78. Que es mera expectativa?",
+    options: ["Posibilidad no consolidada de adquirir un derecho", "Derecho irrevocablemente conferido", "Promulgacion de la ley", "Persona juridica reconocida"],
+    answer: 0,
+    why: "La expectativa todavia no se ha perfeccionado como derecho adquirido."
+  },
+  {
+    module: "tiempo",
+    question: "79. Que son normas de transicion?",
+    options: ["Reglas que determinan como se aplican leyes nuevas a situaciones nacidas bajo leyes anteriores", "Normas que crean nombres", "Sentencias sin efecto", "Fuentes historicas no juridicas"],
+    answer: 0,
+    why: "Las normas de transicion protegen seguridad juridica ante cambios legislativos."
+  },
+  {
+    module: "tiempo",
+    question: "80. Que ocurre si una nueva ley regula hechos futuros?",
+    options: ["No hay retroactividad", "Siempre hay retroactividad", "Se aplica la ley penal mas benigna", "Se extingue la personalidad"],
+    answer: 0,
+    why: "La retroactividad supone afectar el pasado, no regular hechos futuros."
+  },
+  {
+    module: "interpretacion",
+    question: "81. Que es ambiguedad semantica?",
+    options: ["Una palabra admite mas de un significado", "La norma no fue publicada", "La ley quedo derogada", "La persona no tiene domicilio"],
+    answer: 0,
+    why: "La ambiguedad semantica aparece cuando un termino puede entenderse de varias formas."
+  },
+  {
+    module: "interpretacion",
+    question: "82. Que es vaguedad?",
+    options: ["Indeterminacion de los limites de aplicacion de un concepto", "Contradiccion entre dos leyes claras", "Publicacion tardia", "Extincion de persona juridica"],
+    answer: 0,
+    why: "La vaguedad genera zona de penumbra entre casos claros de inclusion y exclusion."
+  },
+  {
+    module: "interpretacion",
+    question: "83. Que es antinomia?",
+    options: ["Contradiccion normativa entre soluciones incompatibles", "Nombre de fantasia", "Muerte presunta", "Capacidad de ejercicio"],
+    answer: 0,
+    why: "Las antinomias son problemas sistemicos de incompatibilidad entre normas."
+  },
+  {
+    module: "interpretacion",
+    question: "84. Que busca la interpretacion sistematica?",
+    options: ["Leer la norma en conexion con el ordenamiento", "Aislar cada articulo de todo contexto", "Derogar la ley sin otra norma", "Crear domicilio legal"],
+    answer: 0,
+    why: "La interpretacion sistematica conecta la disposicion con el conjunto normativo."
+  },
+  {
+    module: "interpretacion",
+    question: "85. Que busca la interpretacion historica?",
+    options: ["Considerar antecedentes y contexto de sancion de la norma", "Aplicar solo hechos futuros", "Crear una persona juridica", "Determinar estado civil por partidas"],
+    answer: 0,
+    why: "El elemento historico atiende a la historia fidedigna o contexto de la sancion."
+  },
+  {
+    module: "interpretacion",
+    question: "86. Que postula la escuela logico-sistematica?",
+    options: ["La norma se interpreta dentro del sistema y no solo por voluntad del autor", "La ley nunca se interpreta", "La doctrina siempre obliga", "La costumbre deroga toda ley"],
+    answer: 0,
+    why: "Esta escuela privilegia reglas y principios del sistema juridico."
+  },
+  {
+    module: "interpretacion",
+    question: "87. Que riesgo se atribuye a posiciones muy libres de interpretacion?",
+    options: ["Arbitrariedad judicial", "Falta de publicacion", "Domicilio multiple", "Viabilidad biologica"],
+    answer: 0,
+    why: "El material critica que ciertos enfoques pueden dejar demasiado margen subjetivo al juez."
+  },
+  {
+    module: "interpretacion",
+    question: "88. Que son principios generales del Derecho?",
+    options: ["Reglas axiologicas o informadoras extraidas del sistema y/o justicia superior", "Solamente articulos numerados", "Actas de nacimiento", "Domicilios especiales"],
+    answer: 0,
+    why: "Los principios orientan e integran; no son una lista cerrada de articulos."
+  },
+  {
+    module: "civil",
+    question: "89. Que significa bilateralidad de la norma juridica?",
+    options: ["Relaciona facultades y deberes entre sujetos", "Solo obliga internamente la conciencia", "Impide toda sancion", "Es sinonimo de domicilio"],
+    answer: 0,
+    why: "La bilateralidad implica correlacion juridica entre facultades y obligaciones."
+  },
+  {
+    module: "civil",
+    question: "90. Que significa heteronomia?",
+    options: ["La norma se impone desde una autoridad externa al obligado", "La norma nace solo de la voluntad individual", "La norma no tiene sancion", "La norma es siempre retroactiva"],
+    answer: 0,
+    why: "La heteronomia diferencia la norma juridica de reglas puramente autonomas."
+  },
+  {
+    module: "civil",
+    question: "91. Que significa coercibilidad?",
+    options: ["Posibilidad de imposicion coactiva", "Ausencia total de fuerza", "Simple consejo moral", "Identificacion por apellido"],
+    answer: 0,
+    why: "La coercibilidad permite hacer valer la norma mediante mecanismos institucionales."
+  },
+  {
+    module: "civil",
+    question: "92. Que implica ordenamiento juridico?",
+    options: ["Sistema de reglas y organizacion que las hace valer", "Solo conjunto de opiniones", "Unicamente contratos privados", "Lista de domicilios"],
+    answer: 0,
+    why: "El material describe Derecho como reglas mas organizacion que las hace valer."
+  },
+  {
+    module: "civil",
+    question: "93. Que rama se menciona como derecho privado especializado?",
+    options: ["Derecho Comercial", "Derecho Penal", "Derecho Constitucional", "Derecho Administrativo"],
+    answer: 0,
+    why: "El Derecho Comercial es una rama privada especial vinculada al Derecho Civil comun."
+  },
+  {
+    module: "riggs",
+    question: "94. Cual era la pregunta juridica central en Riggs?",
+    options: ["Si el asesino podia heredar bajo el testamento", "Si una ley entraba en vigencia en 10 dias", "Si una persona juridica se extinguia", "Si el domicilio era legal"],
+    answer: 0,
+    why: "El caso discute si Elmer puede beneficiarse del testamento tras asesinar al testador."
+  },
+  {
+    module: "riggs",
+    question: "95. Que tipo de interpretacion usa con fuerza la mayoria en Riggs?",
+    options: ["Teleologica/equitativa apoyada en principios", "Literal estricta sin principios", "Solo gramatical del art. 1 CCU", "Interpretacion penal benigna"],
+    answer: 0,
+    why: "La mayoria mira finalidad, equidad, orden publico y maximas generales."
+  },
+  {
+    module: "riggs",
+    question: "96. Que defiende la disidencia de Gray?",
+    options: ["Seguridad juridica y respeto al texto legislativo sobre testamentos", "Que Elmer no asesino", "Que no existen principios", "Que el juez puede crear cualquier pena"],
+    answer: 0,
+    why: "Gray entiende que el tribunal no debe alterar el testamento ni agregar sanciones sin ley."
+  },
+  {
+    module: "riggs",
+    question: "97. Que relacion tiene Riggs con Dworkin?",
+    options: ["Es usado como ejemplo de principios frente a reglas", "Prueba la publicacion de leyes", "Define domicilio legal", "Regula asociaciones civiles"],
+    answer: 0,
+    why: "Dworkin lo utiliza para discutir el papel de principios en casos dificiles."
+  },
+  {
+    module: "riggs",
+    question: "98. Que maxima resume el fundamento de la mayoria?",
+    options: ["Nadie puede beneficiarse de su propio crimen", "La ley posterior siempre es ultraactiva", "Todo domicilio es legal", "Toda doctrina obliga"],
+    answer: 0,
+    why: "Ese principio impide que Elmer adquiera la herencia por el asesinato."
+  },
+  {
+    module: "persona",
+    question: "99. Que diferencia derechos del hombre y derechos de la personalidad segun el programa?",
+    options: ["Los estudia como categorias relacionadas pero no identicas", "Son exactamente el mismo punto sin diferencias", "Ambos son solo patrimoniales", "Solo aplican a asociaciones civiles"],
+    answer: 0,
+    why: "El programa exige estudiar diferencias e importancia de ambas categorias."
+  },
+  {
+    module: "capacidad",
+    question: "100. Que significa legitimacion para disponer?",
+    options: ["Aptitud o habilitacion concreta para realizar un acto de disposicion sobre cierto bien o derecho", "Personalidad general de todo ser humano", "Publicacion en el Diario Oficial", "Nombre de familia"],
+    answer: 0,
+    why: "La legitimacion mira la posicion concreta frente al acto, distinta de la capacidad general."
+  }
+];
+
+quiz.push(...extraQuiz);
+
 quiz.forEach((item, index) => {
   item.id = `quiz-${index}`;
 });
@@ -688,9 +1350,9 @@ const comparisonCoverage = [
     detail: "Aparecen vigencia, derogacion, irretroactividad y doctrinas subjetivas; tu PPT de eficacia temporal es clave para eso."
   },
   {
-    label: "Atencion",
-    title: "Posibles huecos",
-    detail: "En el programa oficial tambien entra sujeto/persona, persona fisica y juridica, nombre y comienzo de la personalidad. No estan completos en los archivos que recibiste."
+    label: "Agregado ahora",
+    title: "Bloques propios de Personas",
+    detail: "Se incorporaron sujeto/persona, personalidad, nombre, domicilio, estado civil, capacidad e incapacidad y persona juridica."
   }
 ];
 
@@ -922,10 +1584,10 @@ const comparisonQuestions = [
   {
     source: "Programa oficial",
     module: "civil",
-    question: "Que bloque del programa oficial no esta completo en los archivos locales?",
+    question: "Que bloque del programa oficial se agrego para complementar los archivos locales?",
     options: ["Persona fisica, persona juridica y atributos", "Fuentes del Derecho", "Eficacia temporal de la ley", "Interpretacion e integracion"],
     answer: 0,
-    why: "El programa oficial incluye sujeto/persona, nombre, personalidad y persona juridica; tus archivos actuales se concentran en introduccion."
+    why: "El programa oficial incluye sujeto/persona, nombre, personalidad, capacidad y persona juridica; ahora la web los incorpora como refuerzo."
   },
   {
     source: "Tus materiales",
@@ -1474,6 +2136,10 @@ function renderExamResults() {
   const entries = quizResultEntries(state.examAnswers, state.examOrder);
   const correct = entries.filter((entry) => entry.correct).length;
   const byModule = scoreByModule(entries);
+  const weakModules = Object.entries(byModule)
+    .sort(([, a], [, b]) => a.correct / a.total - b.correct / b.total)
+    .slice(0, 3);
+  const wrongEntries = entries.filter((entry) => !entry.correct).slice(0, 5);
 
   return `
     <div class="result-dashboard">
@@ -1490,6 +2156,22 @@ function renderExamResults() {
           )
           .join("")}
       </div>
+      <article class="topic-result">
+        <strong>Repaso recomendado</strong>
+        <span>${
+          weakModules.length
+            ? weakModules.map(([module, score]) => `${moduleName(module)} (${score.correct}/${score.total})`).join(" · ")
+            : "Sin temas flojos detectados"
+        }</span>
+      </article>
+      ${
+        wrongEntries.length
+          ? `<article class="topic-result">
+              <strong>Primeras preguntas falladas</strong>
+              <ul>${wrongEntries.map((entry) => `<li>${questionNumberText(quiz[entry.questionIndex].question)}</li>`).join("")}</ul>
+            </article>`
+          : `<article class="topic-result"><strong>Sin errores</strong><span>Muy buen intento. Repite examen con otro orden para confirmar.</span></article>`
+      }
     </div>
   `;
 }
